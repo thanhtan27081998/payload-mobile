@@ -12,7 +12,7 @@ export default class App extends React.Component {
   };
 
   onPress = async (method) => {
-    const url = `http://${this.state.host}:1234`;
+    const url = this.state.host;
     const response = await fetch(url, {
       method: method,
       headers: {
