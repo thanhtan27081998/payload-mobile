@@ -12,12 +12,13 @@ export default class App extends React.Component {
   };
 
   onPress = async (method) => {
-    const url = this.state.host;
+    const url = 'https://api-test.kobiton.com/v1/users/me';
     const response = await fetch(url, {
       method: method,
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTExNDUsImlhdCI6MTYwNzQ4NDM2MSwiZXhwIjoxNjEwMDc2MzYxfQ.ohEpMTJCYp1J0qL5vRL835L2nFFy695CJELo0q0Im9Q',
       },
       body:
         method === 'GET'
