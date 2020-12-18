@@ -1,5 +1,13 @@
 import React from 'react';
-import {Text, TextInput, View, Button} from 'react-native';
+import {
+  Text,
+  TextInput,
+  View,
+  Button,
+  Alert,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -13,6 +21,7 @@ export default class App extends React.Component {
 
   onPress = async (method) => {
     const url = 'https://api-test.kobiton.com/v1/users/me';
+    this.setState({data: null});
     const response = await fetch(url, {
       method: method,
       headers: {
@@ -29,37 +38,28 @@ export default class App extends React.Component {
             }),
     });
     const data = await response.json();
+    // Alert.alert('Your data', JSON.stringify(data));
     this.setState({data});
   };
 
   render() {
     return (
-      <View
+      <SafeAreaView
         style={{
           flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
+          flexDirection: 'column',
+          justifyContent: 'flex-end',
         }}>
-        <TextInput
-          onChangeText={this.onChangeText}
-          placeholder="Enter your host"
-          style={{
-            width: 200,
-            borderRadius: 8,
-            borderColor: '#000000',
-            padding: 4,
-            borderWidth: 1,
-          }}
-        />
+        <ScrollView style={{flex: 1}}>
+          <Text>
+            {' '}
+            {this.state.data
+              ? JSON.stringify(this.state.data)
+              : 'Your response will go here ...'}
+          </Text>
+        </ScrollView>
         <Button title="Call GET" onPress={() => this.onPress('GET')} />
-        <Button title="Call POST" onPress={() => this.onPress('POST')} />
-        <Text>
-          {' '}
-          {this.state.data
-            ? JSON.stringify(this.state.data)
-            : 'Your response will go here ...'}
-        </Text>
-      </View>
+      </SafeAreaView>
     );
   }
 }
